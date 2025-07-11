@@ -1,3 +1,5 @@
+using FilmesApi.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +20,10 @@ builder.Services.AddSwaggerGen(options =>
         Version = "v1"
     });
 });
+
+builder.Services.AddDbContext<FilmeContext>(opts =>
+    opts.UseSqlServer(builder.Configuration.GetConnectionString("FilmeConnection"))
+);
 
 WebApplication app = builder.Build();
 
