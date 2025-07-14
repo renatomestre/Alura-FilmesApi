@@ -1,4 +1,5 @@
 using FilmesApi.Data;
+using FilmesApi.Profile;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -19,6 +20,11 @@ builder.Services.AddSwaggerGen(options =>
         Title = "Filmes API",
         Version = "v1"
     });
+});
+
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddProfile<FilmeProfile>();
 });
 
 builder.Services.AddDbContext<FilmeContext>(opts =>
