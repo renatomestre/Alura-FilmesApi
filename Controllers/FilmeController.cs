@@ -122,9 +122,9 @@ public class FilmeController(FilmeContext context, IMapper mapper) : ControllerB
     /// <returns>Informações dos filmes buscados</returns>
     /// <response code="200">Com a lista de filmes presentes na base de dados</response>
     [HttpGet]
-    public IEnumerable<Filme> RecuperaFilmes([FromQuery] int skip = 0, [FromQuery] int take = 50)
+    public IEnumerable<ReadFilmeDto> RecuperaFilmes([FromQuery] int skip = 0, [FromQuery] int take = 50)
     {
-        return _context.Filmes.Skip(skip).Take(take);
+        return _mapper.Map<List<ReadFilmeDto>>(_context.Filmes.Skip(skip).Take(take).ToList());
     }
 
     /// <summary>
@@ -142,6 +142,8 @@ public class FilmeController(FilmeContext context, IMapper mapper) : ControllerB
         if (filme == null)
             return NotFound();
 
-        return Ok(filme);
+        var filmeDto = _mapper.Map<ReadFilmeDto>(filme);
+
+        return Ok(filmeDto);
     }
 }

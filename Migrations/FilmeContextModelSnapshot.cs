@@ -44,7 +44,7 @@ namespace FilmesApi.Migrations
                     b.HasIndex("EnderecoId")
                         .IsUnique();
 
-                    b.ToTable("Cinemas");
+                    b.ToTable("Cinemas", (string)null);
                 });
 
             modelBuilder.Entity("FilmesApi.Models.Endereco", b =>
@@ -64,7 +64,7 @@ namespace FilmesApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Enderecos");
+                    b.ToTable("Enderecos", (string)null);
                 });
 
             modelBuilder.Entity("FilmesApi.Models.Filme", b =>
@@ -89,7 +89,7 @@ namespace FilmesApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Filmes");
+                    b.ToTable("Filmes", (string)null);
                 });
 
             modelBuilder.Entity("FilmesApi.Models.Sessao", b =>
@@ -100,9 +100,19 @@ namespace FilmesApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("CinemaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FilmeId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Sessoes");
+                    b.HasIndex("CinemaId");
+
+                    b.HasIndex("FilmeId");
+
+                    b.ToTable("Sessoes", (string)null);
                 });
 
             modelBuilder.Entity("FilmesApi.Models.Cinema", b =>
@@ -116,10 +126,32 @@ namespace FilmesApi.Migrations
                     b.Navigation("Endereco");
                 });
 
+            modelBuilder.Entity("FilmesApi.Models.Sessao", b =>
+                {
+                    b.HasOne("FilmesApi.Models.Cinema", "Cinema")
+                        .WithMany()
+                        .HasForeignKey("CinemaId");
+
+                    b.HasOne("FilmesApi.Models.Filme", "Filme")
+                        .WithMany("Sessoes")
+                        .HasForeignKey("FilmeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cinema");
+
+                    b.Navigation("Filme");
+                });
+
             modelBuilder.Entity("FilmesApi.Models.Endereco", b =>
                 {
                     b.Navigation("Cinema")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("FilmesApi.Models.Filme", b =>
+                {
+                    b.Navigation("Sessoes");
                 });
 #pragma warning restore 612, 618
         }
