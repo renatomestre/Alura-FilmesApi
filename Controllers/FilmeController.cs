@@ -2,6 +2,7 @@
 using FilmesApi.Data;
 using FilmesApi.Data.DTOs;
 using FilmesApi.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FilmesApi.Controllers;
@@ -13,6 +14,16 @@ public class FilmeController(FilmeContext context, IMapper mapper) : ControllerB
     private FilmeContext Context => context;
     private IMapper Mapper => mapper;
 
+    /*
+     *  Exemplo
+     *  *******************************************************************
+        {
+            "titulo": "Planeta dos Macacos",
+            "genero": "Ação",
+            "duracao": 120
+        }
+     *  *******************************************************************
+     */
     [HttpPost]
     public IActionResult AdicionaFilme([FromBody] CreateFilmeDto filmeDto)
     {
@@ -28,6 +39,16 @@ public class FilmeController(FilmeContext context, IMapper mapper) : ControllerB
         );
     }
 
+    /*
+     *  Exemplo
+     *  *******************************************************************
+        {
+            "titulo": "Planeta dos Macacos",
+            "genero": "Ação / Ficção Científica",
+            "duracao": 120
+        }
+     *  *******************************************************************
+     */
     [HttpPut("{id}")]
     public IActionResult AtualizaFilme(int id, [FromBody] UpdateFilmeDto filmeDto)
     {
@@ -37,6 +58,41 @@ public class FilmeController(FilmeContext context, IMapper mapper) : ControllerB
             return NotFound();
 
         Mapper.Map(filmeDto, filme);
+        Context.SaveChanges();
+
+        return NoContent();
+    }
+
+    /*
+     *  Exemplo
+     *  *******************************************************************
+        [
+            {
+                "op": "replace",
+                "path": "/titulo",
+                "value": "Avatar 2"
+            }
+        ]
+     *  *******************************************************************
+     */
+    [HttpPatch("{id}")]
+    public IActionResult AtualizaFilmeParcial(int id, JsonPatchDocument<UpdateFilmeDto> patch)
+    {
+        Filme? filme = Context.Filmes.FirstOrDefault(filme => filme.Id == id);
+
+        if (filme == null)
+            return NotFound();
+
+        UpdateFilmeDto? filmeParaAtualizar = Mapper.Map<UpdateFilmeDto>(filme);
+
+        patch.ApplyTo(filmeParaAtualizar);
+
+        if (!TryValidateModel(filmeParaAtualizar))
+        {
+            return ValidationProblem(ModelState);
+        }
+
+        Mapper.Map(filmeParaAtualizar, filme);
         Context.SaveChanges();
 
         return NoContent();
