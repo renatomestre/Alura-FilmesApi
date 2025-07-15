@@ -1,0 +1,138 @@
+{
+	"info": {
+		"_postman_id": "0efb999a-5a8e-4aa5-b72a-626c6473292a",
+		"name": "FilmesAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46752003",
+		"_collection_link": "https://rmestre-8109066.postman.co/workspace/rmestre's-Workspace~c9befe6e-867a-42d8-8666-e5f9fdd24851/collection/46752003-0efb999a-5a8e-4aa5-b72a-626c6473292a?action=share&source=collection_link&creator=46752003"
+	},
+	"item": [
+		{
+			"name": "filme",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7168/filme",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7168",
+					"path": [
+						"filme"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "filme/{id}",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7168/filme/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7168",
+					"path": [
+						"filme",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "filme",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"titulo\": \"Planeta dos Macacos\",\r\n    \"genero\": \"Ação\",\r\n    \"duracao\": 120\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7168/filme",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7168",
+					"path": [
+						"filme"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "filme/{id}",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"titulo\": \"Avatar2\",\r\n    \"genero\": \"Ação\",\r\n    \"duracao\": 130\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7168/filme/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7168",
+					"path": [
+						"filme",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "filme/{id}",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7168/filme",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7168",
+					"path": [
+						"filme"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
