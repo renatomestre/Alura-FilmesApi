@@ -17,13 +17,15 @@ builder.Services.AddMvc();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "FilmesAPI", Version = "v1" });
-    string? xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    string? xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    string xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     c.IncludeXmlComments(xmlPath);
 });
 
 builder.Services.AddAutoMapper(cfg =>
 {
+    cfg.AddProfile<CinemaProfile>();
+    cfg.AddProfile<EnderecoProfile>();
     cfg.AddProfile<FilmeProfile>();
 });
 

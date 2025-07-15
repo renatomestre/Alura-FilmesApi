@@ -7,12 +7,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FilmesApi.Controllers;
 
+/// <summary>
+/// Filme Controller
+/// </summary>
+/// <param name="context"></param>
+/// <param name="mapper"></param>
 [ApiController]
 [Route("[controller]")]
 public class FilmeController(FilmeContext context, IMapper mapper) : ControllerBase
 {
-    private FilmeContext Context => context;
-    private IMapper Mapper => mapper;
+    private readonly FilmeContext _context = context;
+    private readonly IMapper _mapper = mapper;
 
     /// <summary>
     /// Adiciona um filme ao banco de dados
@@ -24,10 +29,10 @@ public class FilmeController(FilmeContext context, IMapper mapper) : ControllerB
     [ProducesResponseType(StatusCodes.Status201Created)]
     public IActionResult AdicionaFilme([FromBody] CreateFilmeDto filmeDto)
     {
-        Filme filme = Mapper.Map<Filme>(filmeDto);
+        Filme filme = _mapper.Map<Filme>(filmeDto);
 
-        Context.Filmes.Add(filme);
-        Context.SaveChanges();
+        _context.Filmes.Add(filme);
+        _context.SaveChanges();
 
         return CreatedAtAction(
             nameof(RecuperaFilmePorId),
@@ -49,13 +54,13 @@ public class FilmeController(FilmeContext context, IMapper mapper) : ControllerB
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult AtualizaFilme(int id, [FromBody] UpdateFilmeDto filmeDto)
     {
-        Filme? filme = Context.Filmes.FirstOrDefault(filme => filme.Id == id);
+        Filme? filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
 
         if (filme == null)
             return NotFound();
 
-        Mapper.Map(filmeDto, filme);
-        Context.SaveChanges();
+        _mapper.Map(filmeDto, filme);
+        _context.SaveChanges();
 
         return NoContent();
     }
@@ -71,12 +76,12 @@ public class FilmeController(FilmeContext context, IMapper mapper) : ControllerB
     [HttpPatch("{id}")]
     public IActionResult AtualizaFilmeParcial(int id, JsonPatchDocument<UpdateFilmeDto> patch)
     {
-        Filme? filme = Context.Filmes.FirstOrDefault(filme => filme.Id == id);
+        Filme? filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
 
         if (filme == null)
             return NotFound();
 
-        UpdateFilmeDto? filmeParaAtualizar = Mapper.Map<UpdateFilmeDto>(filme);
+        UpdateFilmeDto? filmeParaAtualizar = _mapper.Map<UpdateFilmeDto>(filme);
 
         patch.ApplyTo(filmeParaAtualizar);
 
@@ -85,8 +90,8 @@ public class FilmeController(FilmeContext context, IMapper mapper) : ControllerB
             return ValidationProblem(ModelState);
         }
 
-        Mapper.Map(filmeParaAtualizar, filme);
-        Context.SaveChanges();
+        _mapper.Map(filmeParaAtualizar, filme);
+        _context.SaveChanges();
 
         return NoContent();
     }
@@ -103,33 +108,15 @@ public class FilmeController(FilmeContext context, IMapper mapper) : ControllerB
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult DeletaFilme(int id)
     {
-        Filme? filme = Context.Filmes.FirstOrDefault(filme => filme.Id == id);
+        Filme? filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
 
         if (filme == null)
             return NotFound();
 
-        Context.Remove(filme);
-        Context.SaveChanges();
+        _context.Remove(filme);
+        _context.SaveChanges();
 
         return NoContent();
-    }
-
-    /// <summary>
-    /// Recupera um filme no banco de dados usando seu id
-    /// </summary>
-    /// <param name="id">Id do filme a ser recuperado no banco</param>
-    /// <returns>Informações do filme buscado</returns>
-    /// <response code="200">Caso o id seja existente na base de dados</response>
-    /// <response code="404">Caso o id seja inexistente na base de dados</response>
-    [HttpGet("{id}")]
-    public IActionResult RecuperaFilmePorId(int id)
-    {
-        Filme? filme = Context.Filmes.FirstOrDefault(filme => filme.Id == id);
-
-        if (filme == null)
-            return NotFound();
-
-        return Ok(filme);
     }
 
     /// <summary>
@@ -142,6 +129,24 @@ public class FilmeController(FilmeContext context, IMapper mapper) : ControllerB
     [HttpGet]
     public IEnumerable<Filme> RecuperaFilmes([FromQuery] int skip = 0, [FromQuery] int take = 50)
     {
-        return Context.Filmes.Skip(skip).Take(take);
+        return _context.Filmes.Skip(skip).Take(take);
+    }
+
+    /// <summary>
+    /// Recupera um filme no banco de dados usando seu id
+    /// </summary>
+    /// <param name="id">Id do filme a ser recuperado no banco</param>
+    /// <returns>Informações do filme buscado</returns>
+    /// <response code="200">Caso o id seja existente na base de dados</response>
+    /// <response code="404">Caso o id seja inexistente na base de dados</response>
+    [HttpGet("{id}")]
+    public IActionResult RecuperaFilmePorId(int id)
+    {
+        Filme? filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
+
+        if (filme == null)
+            return NotFound();
+
+        return Ok(filme);
     }
 }
