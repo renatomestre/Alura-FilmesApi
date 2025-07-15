@@ -10,7 +10,7 @@ Uma API RESTful para gerenciar filmes, utilizando ASP.NET Core 9.0 e Entity Fram
 
 Branch:
 
-> https://github.com/renatomestre/Alura-FilmesApi/tree/01-dotnet-criando-web-api
+> https://github.com/renatomestre/Alura-FilmesApi/tree/01-criando-web-api
 
 Plataforma:
 
@@ -22,7 +22,7 @@ Plataforma:
 
 Branch:
 
-> https://github.com/renatomestre/Alura-FilmesApi/tree/02-dotnet-relacionando-entidades
+> https://github.com/renatomestre/Alura-FilmesApi/tree/02-relacionando-entidades
 
 Plataforma:
 
