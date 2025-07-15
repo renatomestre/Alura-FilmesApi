@@ -30,7 +30,7 @@ builder.Services.AddAutoMapper(cfg =>
 });
 
 builder.Services.AddDbContext<FilmeContext>(opts =>
-    opts.UseSqlServer(builder.Configuration.GetConnectionString("FilmeConnection"))
+    opts.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("FilmeConnection"))
 );
 
 WebApplication app = builder.Build();

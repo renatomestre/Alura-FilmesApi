@@ -10,3 +10,6 @@ Uma API RESTful para gerenciar filmes, utilizando ASP.NET Core 9.0 e Entity Fram
 
 ## Documentação de apoio
 
+EntityFramework Proxies
+
+> https://learn.microsoft.com/en-us/ef/core/querying/related-data/lazy
