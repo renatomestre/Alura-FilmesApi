@@ -1,8 +1,8 @@
 # Alura 2025
 
-## Curso de .NET Core: relacionando entidades
+## Curso de .NET Core: persistindo dados com Entity Framework Core
 
-> https://cursos.alura.com.br/course/dotnet-relacionando-entidades
+> https://cursos.alura.com.br/course/dot-net-persistindo-dados-entity-framework-core
 
 ## Projeto "Filmes API"
 
@@ -10,6 +10,3 @@ Uma API RESTful para gerenciar filmes, utilizando ASP.NET Core 9.0 e Entity Fram
 
 ## Documentação de apoio
 
-EntityFramework Proxies
-
-> https://learn.microsoft.com/en-us/ef/core/querying/related-data/lazy
