@@ -27,3 +27,15 @@ Branch:
 Plataforma:
 
 > https://cursos.alura.com.br/course/dotnet-relacionando-entidades
+>
+> ---
+
+### 03 - Persistindo dados com Entity Framework Core
+
+Branch:
+
+> https://github.com/renatomestre/Alura-FilmesApi/tree/03-persistencia-com-entityframework
+
+Plataforma:
+
+> https://cursos.alura.com.br/course/dot-net-persistindo-dados-entity-framework-core
