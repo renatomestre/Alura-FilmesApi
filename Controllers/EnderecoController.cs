@@ -6,11 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FilmesApi.Controllers
 {
-    /// <summary>
-    /// Endereco Controller
-    /// </summary>
-    /// <param name="context"></param>
-    /// <param name="mapper"></param>
     [ApiController]
     [Route("[controller]")]
     public class EnderecoController(FilmeContext context, IMapper mapper) : ControllerBase

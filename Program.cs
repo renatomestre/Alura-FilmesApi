@@ -27,6 +27,7 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<CinemaProfile>();
     cfg.AddProfile<EnderecoProfile>();
     cfg.AddProfile<FilmeProfile>();
+    cfg.AddProfile<SessaoProfile>();
 });
 
 builder.Services.AddDbContext<FilmeContext>(opts =>

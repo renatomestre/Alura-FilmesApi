@@ -6,12 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FilmesApi.Controllers
 {
-    /// <summary>
-    /// Cinema Controller
-    /// </summary>
-    /// <param name="context"></param>
-    /// <param name="mapper"></param>
-    /// [ApiController]
+    [ApiController]
     [Route("[controller]")]
     public class CinemaController(FilmeContext context, IMapper mapper) : ControllerBase
     {
