@@ -98,6 +98,20 @@ public class FilmeController(FilmeContext context, IMapper mapper) : ControllerB
         return NoContent();
     }
 
+    [HttpDelete("{id}")]
+    public IActionResult DeletaFilme(int id)
+    {
+        Filme? filme = Context.Filmes.FirstOrDefault(filme => filme.Id == id);
+
+        if (filme == null)
+            return NotFound();
+
+        Context.Remove(filme);
+        Context.SaveChanges();
+
+        return NoContent();
+    }
+
     [HttpGet("{id}")]
     public IActionResult RecuperaFilmePorId(int id)
     {
